@@ -26,20 +26,26 @@ const Expression expressions[] = {
 
 void talkLoop(void *args)
 {
+  int i = 0;
   for(;;)
   {
     if (lost && TTS.getLevel() == 0)
     {
-      if (rand() > 0.5)
+      if (i % 3 == 0)
       {
-        TTS.play("ta'roukunn.to'-channo/saga_shite", 100);
+        TTS.play("o'-i,to'-chanwa/do'ko?", 90);
+      }
+      else if (i % 3 == 1)
+      {
+        TTS.play("ta'roukunn.to'-channo/saga_shite?", 90);
       }
       else
       {
-        TTS.play("to'-chanha/doko?", 100);
+        TTS.play("isshoni/to-cha-nn/tte/yondemite", 90);
       }
     }
-    delay(8000);
+    i++;
+    delay(6000);
   }
 }
 void breath(void *args)
@@ -99,8 +105,8 @@ void blink(void *args)
 
 class MyServerCallbacks: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
-      M5.Lcd.fillRect(0, 0, 240, 30, TFT_BLACK);
-      M5.Lcd.drawString("connected", 10, 220);
+      // M5.Lcd.fillRect(0, 0, 240, 30, TFT_BLACK);
+      // M5.Lcd.drawString("connected", 10, 220);
       avator->setExpression(Happy);
       TTS.play("ta'roukunn.to'-channno/_chika'kude/asobo'-.", 80);
       delay(3000);
@@ -110,10 +116,10 @@ class MyServerCallbacks: public BLEServerCallbacks {
     };
 
     void onDisconnect(BLEServer* pServer) {
-      M5.Lcd.fillRect(0, 0, 240, 30, TFT_BLACK);
-      M5.Lcd.drawString("disconnected", 10, 220);
+      // M5.Lcd.fillRect(0, 0, 240, 30, TFT_BLACK);
+      // M5.Lcd.drawString("disconnected", 10, 220);
       avator->setExpression(Sad);
-      TTS.play("do'kka/icchatta'yo-.", 100);
+      TTS.play("to'-chan,do'kka/icchatta'yo-.", 100);
       deviceConnected = false;
       lost = true;
     }
